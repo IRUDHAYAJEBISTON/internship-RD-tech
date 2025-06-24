@@ -1,65 +1,72 @@
 contacts = []
 
 def add_contact():
-    name = input("Enter Name: ")
-    phone = input("Enter Phone Number: ")
-    email = input("Enter Email: ")
-    address = input("Enter Address: ")
-    contacts.append({"name": name, "phone": phone, "email": email, "address": address})
-    print("Contact added successfully!\n")
+    name = input("Name: ")
+    phone = input("Phone number: ")
+    email = input("Email: ")
+    address = input("Address: ")
+    contacts.append({
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "address": address
+    })
+    print("Added!\n")
 
 def view_contacts():
-    if not contacts:
-        print("No contacts found.\n")
-    else:
-        print("\nContact List:")
-        for idx, contact in enumerate(contacts, start=1):
-            print(f"{idx}. {contact['name']} - {contact['phone']}")
-        print()
+    if len(contacts) == 0:
+        print("No contacts yet.\n")
+        return
+    print("\nContacts:")
+    for i, c in enumerate(contacts, 1):
+        print(f"{i}. {c['name']} - {c['phone']}")
+    print()
 
 def search_contact():
-    query = input("Enter name or phone number to search: ")
-    found = False
-    for contact in contacts:
-        if query.lower() in contact['name'].lower() or query in contact['phone']:
-            print(f"\nName: {contact['name']}\nPhone: {contact['phone']}\nEmail: {contact['email']}\nAddress: {contact['address']}\n")
-            found = True
-    if not found:
-        print("No contact found.\n")
+    term = input("Search by name or phone: ")
+    found_any = False
+    for c in contacts:
+        if term.lower() in c['name'].lower() or term in c['phone']:
+            print(f"\nName: {c['name']}")
+            print(f"Phone: {c['phone']}")
+            print(f"Email: {c['email']}")
+            print(f"Address: {c['address']}\n")
+            found_any = True
+    if not found_any:
+        print("No matching contact found.\n")
 
 def update_contact():
-    phone = input("Enter phone number of the contact to update: ")
-    for contact in contacts:
-        if contact['phone'] == phone:
-            contact['name'] = input("Enter New Name: ")
-            contact['phone'] = input("Enter New Phone: ")
-            contact['email'] = input("Enter New Email: ")
-            contact['address'] = input("Enter New Address: ")
-            print("Contact updated successfully!\n")
+    phone = input("Phone number of contact to update: ")
+    for c in contacts:
+        if c['phone'] == phone:
+            c['name'] = input("New name: ")
+            c['phone'] = input("New phone: ")
+            c['email'] = input("New email: ")
+            c['address'] = input("New address: ")
+            print("Updated!\n")
             return
     print("Contact not found.\n")
 
 def delete_contact():
-    phone = input("Enter phone number of the contact to delete: ")
-    for contact in contacts:
-        if contact['phone'] == phone:
-            contacts.remove(contact)
-            print("Contact deleted successfully!\n")
+    phone = input("Phone number of contact to delete: ")
+    for c in contacts:
+        if c['phone'] == phone:
+            contacts.remove(c)
+            print("Deleted!\n")
             return
     print("Contact not found.\n")
 
 def menu():
     while True:
-        print("------ Contact Manager ------")
-        print("1. Add Contact")
-        print("2. View Contacts")
-        print("3. Search Contact")
-        print("4. Update Contact")
-        print("5. Delete Contact")
+        print("Contact Manager")
+        print("1. Add")
+        print("2. View")
+        print("3. Search")
+        print("4. Update")
+        print("5. Delete")
         print("6. Exit")
 
-        choice = input("Enter your choice (1-6): ")
-        
+        choice = input("Choose (1-6): ")
         if choice == '1':
             add_contact()
         elif choice == '2':
@@ -71,9 +78,9 @@ def menu():
         elif choice == '5':
             delete_contact()
         elif choice == '6':
-            print("Goodbye!")
+            print("Bye!")
             break
         else:
-            print("Invalid choice. Please try again.\n")
+            print("Try again.\n")
 
 menu()
