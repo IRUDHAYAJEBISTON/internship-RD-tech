@@ -2,20 +2,18 @@ import random
 import string
 
 def generate_password(length):
-    # Define possible characters (letters, digits, symbols)
-    characters = string.ascii_letters + string.digits + string.punctuation
-    # Generate a password by randomly choosing characters
-    password = ''.join(random.choice(characters) for _ in range(length))
-    return password
+    chars = string.ascii_letters + string.digits + string.punctuation
+    pwd = ""
+    for _ in range(length):
+        pwd += random.choice(chars)
+    return pwd
 
-# Ask user for desired password length
 try:
-    user_length = int(input("Enter desired password length: "))
-    if user_length < 4:
-        print("Password length should be at least 4 characters.")
+    length = int(input("How long do you want your password to be? "))
+    if length < 4:
+        print("That’s too short. Make it at least 4 characters.")
     else:
-        # Generate and display the password
-        generated_password = generate_password(user_length)
-        print(f"Your generated password is: {generated_password}")
-except ValueError:
-    print("Please enter a valid number.")
+        print("Here’s your password:")
+        print(generate_password(length))
+except:
+    print("Oops, that doesn’t look like a number.")
